@@ -13,6 +13,7 @@ public class Voiture implements Serializable {
         this.immatriculation = immatriculation;
         this.modele = modele;
         this.proprietaire = null;
+        
     }
     public void setProprietaire(Personne p) { this.proprietaire = p; }
     public void setImmatriculation(String immatriculation) { this.immatriculation = immatriculation; }

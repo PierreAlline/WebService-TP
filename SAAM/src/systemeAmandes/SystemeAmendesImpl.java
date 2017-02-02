@@ -3,10 +3,13 @@ package systemeAmandes;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.jws.WebService;
+
 import IntSystemeAmandes.SystemeAmendes;
 import radars.Amende;
 import radars.Voiture;
 
+@WebService(endpointInterface = "IntSystemeAmandes.SystemeAmendes")
 public class SystemeAmendesImpl implements SystemeAmendes{
 
 	Set<Amende> listAmande;
@@ -36,6 +39,7 @@ public class SystemeAmendesImpl implements SystemeAmendes{
 	@Override
 	public void enregistrer(Voiture v) {
 		listVoiture.add(v);
+		v.toString();
 	}
 
 	@Override
@@ -50,6 +54,7 @@ public class SystemeAmendesImpl implements SystemeAmendes{
 		if(voit != null){
 			a = new Amende(Immatriculation, tarif);
 			listAmande.add(a);
+			a.toString();
 			return a.getNumero();
 		}else{
 			return -1;
@@ -58,10 +63,14 @@ public class SystemeAmendesImpl implements SystemeAmendes{
 
 	@Override
 	public Amende[] lister(String Immatriculation) {
-		Amende[] a = new Amende [100];
+		Amende[] a;
+		int cpt= 0;
 		for(Amende am : listAmande){
-			int cpt= 0;
-			
+			cpt++;
+		}
+		a= new Amende[cpt];
+		cpt = 0;
+		for(Amende am : listAmande){
 			if(am.getImmatriculation().equals(Immatriculation)){
 				a[cpt] = am;
 				cpt++;
@@ -72,10 +81,21 @@ public class SystemeAmendesImpl implements SystemeAmendes{
 
 	@Override
 	public void payer(int numero, String nom, String prenom) {
+		Amende an = null;
 		for(Amende a : listAmande){
 			if(a.getNumero() == numero){
-				listAmande.remove(a);
+				for(Voiture v : listVoiture){
+					if(a.getImmatriculation() == v.getImmatriculation()){
+						if(v.getProprietaire().getNom().equals(nom) && v.getProprietaire().getPrenom().equals(prenom)){
+							an = a;
+						}
+					}
+				}
+				
 			}
+		}
+		if(an != null){
+			listAmande.remove(an);
 		}
 	}
 
