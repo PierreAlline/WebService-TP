@@ -39,21 +39,21 @@ public class SystemeAmendeClients {
         Amende[] a = sa.lister("AB 123 CD");
         
         for(Amende am : a){
-        	System.out.println(am.toString());
+        	System.out.println(am.toString()+"\n");
         }
         
         sa.payer(1, "Capitaine", "Haddock");
         a = sa.lister("AB 123 CD");
         
         for(Amende am : a){
-        	System.out.println(am.toString());
+        	System.out.println(am.toString()+"\n");
         }
         
         sa.payer(1, "Bob", "Sponge");
         a = sa.lister("AB 123 CD");
         
         for(Amende am : a){
-        	System.out.println(am.toString());
+        	System.out.println(am.toString()+"\n");
         }
 
     }
